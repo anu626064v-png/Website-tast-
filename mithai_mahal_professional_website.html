@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mithai Mahal - Premium handcrafted Indian sweets. Exquisite mithai for weddings, festivals and gifting. Experience luxury in every bite.">
+    <title>Mithai Mahal | Premium Indian Sweets</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Inter:wght@300;400;500;600&amp;display=swap');
+        
+        :root {
+            --gold: #C9A961;
+            --burgundy: #6B2D3C;
+            --cream: #FFFBF5;
+            --dark: #2C1810;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-serif {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .luxury-gradient {
+            background: linear-gradient(135deg, #2C1810 0%, #4A2C1F 100%);
+        }
+
+        .gold-text {
+            color: #C9A961;
+        }
+
+        .section-heading {
+            font-size: 2.75rem;
+            line-height: 1.1;
+            font-weight: 700;
+            color: #2C1810;
+        }
+
+        .product-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #EDE4D8;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+            border-color: #C9A961;
+        }
+
+        .nav-link {
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #C9A961;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+
+        .sweet-filter-btn {
+            transition: all 0.2s ease;
+        }
+        
+        .sweet-filter-btn.active {
+            background-color: #C9A961;
+            color: white;
+            border-color: #C9A961;
+        }
+
+        .modal {
+            animation: modalPopIn 0.3s ease forwards;
+        }
+
+        @keyframes modalPopIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .cart-drawer {
+            animation: slideInRight 0.4s ease forwards;
+        }
+
+        .mithai-shadow {
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        .premium-btn {
+            background: linear-gradient(to right, #C9A961, #A68B4B);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(201, 169, 97, 0.3);
+        }
+        
+        .premium-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(201, 169, 97, 0.4);
+        }
+
+        .nav-scrolled {
+            background-color: rgba(255, 251, 245, 0.95);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        .food-img {
+            transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                        box-shadow 0.4s ease;
+        }
+        
+        .product-card:hover .food-img {
+            transform: scale(1.08);
+        }
+
+        .gallery-img {
+            transition: transform 0.6s ease, box-shadow 0.4s ease;
+        }
+        
+        .gallery-img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .stat-number {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .sweet-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #C9A961, transparent);
+        }
+        
+        /* Design Improvements */
+        .product-card {
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+        }
+        
+        #search-input:focus {
+            box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.1);
+        }
+        
+        .sweet-filter-btn {
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+        
+        .sweet-filter-btn.active {
+            box-shadow: 0 2px 8px rgba(201, 169, 97, 0.25);
+        }
+        
+        .premium-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .premium-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -100%;
+            width: 50%;
+            height: 200%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,0.25),
+                transparent
+            );
+            transition: left 0.6s;
+        }
+        
+        .premium-btn:hover::after {
+            left: 250%;
+        }
+        
+        /* WhatsApp button pulse */
+        .fixed.bottom-6.right-6 button {
+            animation: whatsappPulse 2s infinite ease-in-out;
+        }
+        
+        @keyframes whatsappPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
+            70% { box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
+        }
+    </style>
+</head>
+<body class="bg-[#FFFBF5] text-[#2C1810] overflow-x-hidden">
+    <!-- NAVBAR -->
+    <nav id="navbar" class="bg-white border-b border-[#EDE4D8] sticky top-0 z-50 transition-all duration-300">
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="px-8 py-5 flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center gap-x-3">
+                    <div class="w-11 h-11 bg-[#C9A961] rounded-2xl flex items-center justify-center shadow-inner">
+                        <i class="fa-solid fa-crown text-white text-3xl"></i>
+                    </div>
+                    <div>
+                        <span class="font-bold text-3xl tracking-tighter heading-serif">Mithai</span>
+                        <span class="font-bold text-3xl tracking-tighter text-[#C9A961] heading-serif">Mahal</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-x-9 text-sm font-medium">
+                    <a href="#heritage" class="nav-link text-[#4A2C1F] hover:text-[#2C1810]">Our Heritage</a>
+                    <a href="#collection" class="nav-link text-[#4A2C1F] hover:text-[#2C1810]">Signature Collection</a>
+                    <a href="#why-us" class="nav-link text-[#4A2C1F] hover:text-[#2C1810]">Why Mithai Mahal</a>
+                    <a href="#gallery" class="nav-link text-[#4A2C1F] hover:text-[#2C1810]">Gallery</a>
+                    <a href="#contact" class="nav-link text-[#4A2C1F] hover:text-[#2C1810]">Contact</a>
+                </div>
+
+                <!-- Right Side -->
+                <div class="flex items-center gap-x-4">
+                    <!-- Cart Button -->
+                    <button onclick="openCartDrawer()" 
+                            class="flex items-center gap-x-2 px-5 py-2.5 rounded-3xl border border-[#EDE4D8] hover:border-[#C9A961] transition-colors bg-white">
+                        <div class="relative">
+                            <i class="fa-solid fa-shopping-bag text-xl text-[#4A2C1F]"></i>
+                            <span id="cart-count" 
+                                  class="absolute -top-1.5 -right-1.5 bg-[#C9A961] text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full">0</span>
+                        </div>
+                        <span class="hidden md:inline text-sm font-semibold">Cart</span>
+                    </button>
+
+                    <!-- Login / User Profile (NEW) -->
+                    <div id="user-section" class="flex items-center">
+                        <button id="login-btn" onclick="openLoginModal()" 
+                                class="flex items-center gap-x-2 px-5 py-2.5 text-sm font-medium border border-[#EDE4D8] hover:border-[#C9A961] hover:bg-[#FFFBF5] rounded-3xl transition-all">
+                            <i class="fa-solid fa-user text-[#4A2C1F]"></i>
+                            <span class="hidden md:inline">Login</span>
+                        </button>
+                        
+                        <!-- User Profile (shown after login) -->
+                        <div id="user-profile" class="hidden items-center gap-x-2">
+                            <div onclick="showUserMenu()" class="flex items-center gap-x-2 px-3 py-1.5 bg-[#FFFBF5] border border-[#EDE4D8] hover:border-[#C9A961] rounded-3xl cursor-pointer transition">
+                                <div class="w-8 h-8 bg-[#C9A961] rounded-full flex items-center justify-center text-white text-xs font-bold shadow-inner" id="user-avatar">U</div>
+                                <div class="hidden md:block">
+                                    <div class="text-xs font-semibold text-[#2C1810]" id="user-name">User</div>
+                                </div>
+                            </div>
+                            <button onclick="logout()" class="text-[#6B5C4D] hover:text-red-600 p-1" title="Logout">
+                                <i class="fa-solid fa-sign-out-alt text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- CTA Button -->
+                    <button onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })" 
+                            class="hidden md:flex items-center gap-x-2 px-6 py-3 bg-[#2C1810] hover:bg-black text-white text-sm font-semibold rounded-3xl transition-all active:scale-[0.985]">
+                        <span>Book Private Tasting</span>
+                    </button>
+
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-btn" class="md:hidden w-11 h-11 flex items-center justify-center text-[#4A2C1F]">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-[#EDE4D8] bg-white px-6 py-4">
+            <div class="flex flex-col gap-y-3 text-base font-medium">
+                <a href="#heritage" class="py-2 mobile-nav-link">Our Heritage</a>
+                <a href="#collection" class="py-2 mobile-nav-link">Signature Collection</a>
+                <a href="#why-us" class="py-2 mobile-nav-link">Why Mithai Mahal</a>
+                <a href="#gallery" class="py-2 mobile-nav-link">Gallery</a>
+                <a href="#contact" class="py-2 mobile-nav-link">Contact</a>
+                <div class="pt-3 border-t border-[#EDE4D8]">
+                    <button onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }); closeMobileMenu();" 
+                            class="w-full py-3 bg-[#2C1810] text-white rounded-3xl font-semibold text-sm">
+                        Book Private Tasting
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative h-[100dvh] min-h-[640px] flex items-center justify-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 bg-cover bg-center" 
+             style="background-image: url('https://picsum.photos/id/1018/2000/1400')">
+            <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/70"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(#C9A961_0.8px,transparent_1px)] bg-[length:4px_4px] opacity-10"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-screen-xl px-6 text-center">
+            <div class="inline-flex items-center gap-x-2 bg-white/10 backdrop-blur-md border border-white/30 px-5 py-1.5 rounded-3xl mb-6">
+                <div class="w-2 h-2 bg-[#C9A961] rounded-full animate-pulse"></div>
+                <span class="text-white/90 text-sm font-medium tracking-[1.5px]">EST. 1992 • JAIPUR</span>
+            </div>
+            
+            <h1 class="text-white text-7xl md:text-8xl leading-[0.95] font-bold tracking-tighter heading-serif mb-4">
+                MITHAI<br>MAHAL
+            </h1>
+            <p class="max-w-md mx-auto text-white/90 text-xl md:text-2xl font-light tracking-tight mb-10">
+                Where centuries-old recipes meet modern luxury.<br>
+                Handcrafted premium sweets for the most discerning palates.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button onclick="document.getElementById('collection').scrollIntoView({ behavior: 'smooth' })" 
+                        class="group flex items-center justify-center gap-x-3 px-10 py-4 bg-white text-[#2C1810] hover:bg-[#C9A961] hover:text-white font-semibold rounded-3xl text-base transition-all shadow-xl active:scale-[0.985]">
+                    <span>Explore Signature Collection</span>
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
+                </button>
+                
+                <button onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })" 
+                        class="flex items-center justify-center gap-x-3 px-8 py-4 border-2 border-white/80 hover:bg-white/10 text-white font-semibold rounded-3xl text-base transition-all">
+                    <span>Schedule Private Tasting</span>
+                </button>
+            </div>
+            
+            <div class="mt-12 flex justify-center">
+                <div class="flex items-center gap-x-8 text-white/70 text-sm">
+                    <div class="flex items-center gap-x-2">
+                        <i class="fa-solid fa-check text-[#C9A961]"></i>
+                        <span>100% Pure Desi Ghee</span>
+                    </div>
+                    <div class="flex items-center gap-x-2">
+                        <i class="fa-solid fa-check text-[#C9A961]"></i>
+                        <span>No Preservatives</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-9 left-1/2 -translate-x-1/2 flex flex-col items-center text-white/60 text-xs tracking-[2px]">
+            <span>SCROLL TO DISCOVER</span>
+            <i class="fa-solid fa-chevron-down mt-1 animate-bounce"></i>
+        </div>
+    </header>
+
+    <!-- TRUST BAR -->
+    <div class="border-b border-[#EDE4D8] bg-white py-4">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-sm text-[#6B5C4D]">
+                <div class="flex items-center gap-x-2">
+                    <i class="fa-solid fa-award text-[#C9A961]"></i>
+                    <span class="font-medium">Featured in Forbes India 2024</span>
+                </div>
+                <div class="hidden md:block w-px h-3 bg-[#EDE4D8]"></div>
+                <div>Trusted by 250+ leading hotels &amp; corporates</div>
+                <div class="hidden md:block w-px h-3 bg-[#EDE4D8]"></div>
+                <div>Over 1.2 million sweets served last year</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OUR HERITAGE -->
+    <section id="heritage" class="max-w-screen-2xl mx-auto px-8 pt-20 pb-16">
+        <div class="grid md:grid-cols-12 gap-x-12 items-center">
+            <!-- Text -->
+            <div class="md:col-span-7">
+                <div class="uppercase tracking-[3px] text-[#C9A961] text-xs font-semibold mb-3">SINCE 1992</div>
+                <h2 class="section-heading leading-none mb-6">A Legacy of<br> Sweet Excellence</h2>
+                
+                <div class="prose prose-lg max-w-[42ch] text-[#4A2C1F]">
+                    <p class="mb-5">Mithai Mahal was born from a simple yet profound belief — that the finest sweets should be an experience, not just a taste.</p>
+                    
+                    <p class="mb-5">Founded by Master Halwai Shri Brijmohan Sharma in the pink city of Jaipur, we have spent over three decades perfecting the art of traditional mithai making using recipes passed down through five generations.</p>
+                    
+                    <p>Today, under the guidance of his son, we continue to blend heritage with contemporary elegance — sourcing the finest pistachios from Iran, saffron from Kashmir, and almonds from California, all crafted in small batches with pure A2 desi ghee.</p>
+                </div>
+                
+                <div class="mt-8 flex items-center gap-x-4">
+                    <button onclick="document.getElementById('why-us').scrollIntoView({ behavior: 'smooth' })" 
+                            class="px-7 py-3.5 border border-[#C9A961] hover:bg-[#C9A961] hover:text-white transition text-sm font-semibold rounded-3xl flex items-center gap-x-2">
+                        <span>Discover Our Craft</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Image -->
+            <div class="md:col-span-5 mt-10 md:mt-0">
+                <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-[#EDE4D8]">
+                    <img src="https://picsum.photos/id/1015/900/1100" 
+                         alt="Master halwai crafting premium mithai at Mithai Mahal heritage kitchen in Jaipur"
+                         class="w-full h-full object-cover aspect-[4/3.3] md:aspect-auto">
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent h-2/3"></div>
+                    <div class="absolute bottom-6 left-6 text-white">
+                        <div class="text-xs tracking-widest opacity-75">MASTER HALWAI</div>
+                        <div class="font-semibold text-xl">Shri Brijmohan Sharma</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SIGNATURE COLLECTION -->
+    <section id="collection" class="bg-white border-y border-[#EDE4D8] py-16">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
+                <div>
+                    <div class="uppercase tracking-[3px] text-[#C9A961] text-xs font-semibold">CURATED WITH LOVE</div>
+                    <h2 class="section-heading">Signature Collection</h2>
+                </div>
+                <p class="max-w-md text-[#6B5C4D] mt-3 md:mt-0">Each creation is made in small batches using time-honoured techniques and the finest ingredients.</p>
+            </div>
+
+            <!-- Filters + Search -->
+            <div class="flex flex-col md:flex-row md:items-center gap-4 mb-8">
+                <div class="flex flex-wrap gap-2" id="filter-buttons">
+                    <button data-filter="all" onclick="filterByCategory('all')" 
+                            class="sweet-filter-btn active px-6 py-2 text-sm font-medium border border-[#C9A961] bg-[#C9A961] text-white rounded-3xl">All Sweets</button>
+                    <button data-filter="dry-fruit" onclick="filterByCategory('dry-fruit')" 
+                            class="sweet-filter-btn px-5 py-2 text-sm font-medium border border-[#EDE4D8] hover:border-[#C9A961] rounded-3xl">Dry Fruit Specials</button>
+                    <button data-filter="traditional" onclick="filterByCategory('traditional')" 
+                            class="sweet-filter-btn px-5 py-2 text-sm font-medium border border-[#EDE4D8] hover:border-[#C9A961] rounded-3xl">Traditional Classics</button>
+                    <button data-filter="signature" onclick="filterByCategory('signature')" 
+                            class="sweet-filter-btn px-5 py-2 text-sm font-medium border border-[#EDE4D8] hover:border-[#C9A961] rounded-3xl">Signature Creations</button>
+                    <button data-filter="festive" onclick="filterByCategory('festive')" 
+                            class="sweet-filter-btn px-5 py-2 text-sm font-medium border border-[#EDE4D8] hover:border-[#C9A961] rounded-3xl">Festive Favorites</button>
+                </div>
+                
+                <!-- Search Bar (NEW) -->
+                <div class="relative flex-1 max-w-md">
+                    <input type="text" id="search-input" 
+                           class="w-full bg-white border border-[#EDE4D8] focus:border-[#C9A961] pl-11 pr-4 py-2.5 text-sm rounded-3xl outline-none transition-all placeholder:text-[#9C8A7A]"
+                           placeholder="Search by name, flavour or ingredient..." 
+                           oninput="handleSearch()">
+                    <i class="fa-solid fa-search absolute left-4 top-3 text-[#C9A961]"></i>
+                    <button onclick="clearSearch()" class="absolute right-3 top-2.5 text-[#6B5C4D] hover:text-[#C9A961] hidden" id="clear-search-btn">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Populated via JavaScript -->
+            </div>
+            
+            <div class="text-center mt-10">
+                <button onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })" 
+                        class="inline-flex items-center text-sm font-semibold px-8 py-3.5 border border-[#2C1810] hover:bg-[#2C1810] hover:text-white rounded-3xl transition">
+                    <span>Need a custom assortment or bulk order?</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY MITHAI MAHAL -->
+    <section id="why-us" class="max-w-screen-2xl mx-auto px-8 py-20">
+        <div class="text-center mb-12">
+            <div class="text-[#C9A961] text-xs tracking-[3px] font-semibold">THE MITHAI MAHAL DIFFERENCE</div>
+            <h2 class="section-heading mt-2">Why Discerning Clients<br>Choose Us</h2>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Feature 1 -->
+            <div class="bg-white border border-[#EDE4D8] p-8 rounded-3xl group hover:border-[#C9A961] transition">
+                <div class="w-14 h-14 flex items-center justify-center bg-[#FFFBF5] rounded-2xl mb-6 group-hover:bg-[#C9A961]/10 transition">
+                    <i class="fa-solid fa-gem text-3xl text-[#C9A961]"></i>
+                </div>
+                <h3 class="font-semibold text-2xl mb-3">Artisanal Mastery</h3>
+                <p class="text-[#6B5C4D]">Every sweet is personally overseen by our third-generation halwais. No mass production — only small-batch perfection.</p>
+            </div>
+            
+            <div class="bg-white border border-[#EDE4D8] p-8 rounded-3xl group hover:border-[#C9A961] transition">
+                <div class="w-14 h-14 flex items-center justify-center bg-[#FFFBF5] rounded-2xl mb-6 group-hover:bg-[#C9A961]/10 transition">
+                    <i class="fa-solid fa-leaf text-3xl text-[#C9A961]"></i>
+                </div>
+                <h3 class="font-semibold text-2xl mb-3">Purest Ingredients</h3>
+                <p class="text-[#6B5C4D]">We source directly from growers. Pure saffron, hand-selected dry fruits, and A2 cow ghee from our own partner farms.</p>
+            </div>
+            
+            <div class="bg-white border border-[#EDE4D8] p-8 rounded-3xl group hover:border-[#C9A961] transition">
+                <div class="w-14 h-14 flex items-center justify-center bg-[#FFFBF5] rounded-2xl mb-6 group-hover:bg-[#C9A961]/10 transition">
+                    <i class="fa-solid fa-sync text-3xl text-[#C9A961]"></i>
+                </div>
+                <h3 class="font-semibold text-2xl mb-3">Made Fresh Daily</h3>
+                <p class="text-[#6B5C4D]">Your order is prepared only after it is placed. We never use preservatives or pre-made mixes.</p>
+            </div>
+            
+            <div class="bg-white border border-[#EDE4D8] p-8 rounded-3xl group hover:border-[#C9A961] transition">
+                <div class="w-14 h-14 flex items-center justify-center bg-[#FFFBF5] rounded-2xl mb-6 group-hover:bg-[#C9A961]/10 transition">
+                    <i class="fa-solid fa-gift text-3xl text-[#C9A961]"></i>
+                </div>
+                <h3 class="font-semibold text-2xl mb-3">Bespoke Gifting</h3>
+                <p class="text-[#6B5C4D]">From royal wedding trousseaus to corporate Diwali hampers — we create unforgettable experiences.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery" class="bg-[#2C1810] py-16 text-white">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="flex justify-between items-end mb-9">
+                <div>
+                    <div class="text-[#C9A961] tracking-[2.5px] text-xs font-medium">IN EVERY FRAME</div>
+                    <h2 class="text-white text-5xl font-bold heading-serif tracking-tighter">A Visual Feast</h2>
+                </div>
+                <a href="#" class="hidden md:flex items-center text-sm text-[#C9A961] hover:text-white transition">VIEW FULL GALLERY <i class="fa-solid fa-arrow-right ml-2"></i></a>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+                <div class="overflow-hidden rounded-3xl aspect-square">
+                    <img src="https://picsum.photos/id/312/600/600" class="gallery-img w-full h-full object-cover" alt="Assorted premium Indian mithai box with gold packaging">
+                </div>
+                <div class="overflow-hidden rounded-3xl aspect-square">
+                    <img src="https://picsum.photos/id/292/600/600" class="gallery-img w-full h-full object-cover" alt="Closeup of saffron infused laddoos and barfi">
+                </div>
+                <div class="overflow-hidden rounded-3xl aspect-square">
+                    <img src="https://picsum.photos/id/160/600/600" class="gallery-img w-full h-full object-cover" alt="Elegant wedding mithai platter with dry fruits and rose petals">
+                </div>
+                <div class="overflow-hidden rounded-3xl aspect-square">
+                    <img src="https://picsum.photos/id/201/600/600" class="gallery-img w-full h-full object-cover" alt="Master halwai preparing fresh mithai in traditional kitchen">
+                </div>
+                <div class="overflow-hidden rounded-3xl aspect-square">
+                    <img src="https://picsum.photos/id/1033/600/600" class="gallery-img w-full h-full object-cover" alt="Luxury gift boxes of Mithai Mahal sweets for Diwali and weddings">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="max-w-screen-2xl mx-auto px-8 py-20">
+        <div class="text-center mb-10">
+            <div class="text-[#C9A961] text-xs tracking-[3px] font-semibold">LOVED BY CONNOISSEURS</div>
+            <h2 class="section-heading mt-1">What Our Clients Say</h2>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-white border border-[#EDE4D8] p-8 rounded-3xl">
+                <div class="flex gap-x-1 text-[#C9A961] mb-5">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="italic text-lg">"The Kesar Pista Laddoos and Anjeer Rolls were the absolute highlight of our daughter's wedding. Guests are still talking about them. Truly world-class."</p>
+                <div class="mt-6 flex items-center gap-x-4">
+                    <div class="w-10 h-10 bg-[#EDE4D8] rounded-full overflow-hidden"><img src="https://picsum.photos/id/1005/40/40" class="object-cover"></div>
+                    <div>
+                        <div class="font-semibold">Mrs. Meera Rathore</div>
+                        <div class="text-xs text-[#6B5C4D]">Mother of the Bride • Udaipur Royal Wedding</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white border border-[#EDE4D8] p-8 rounded-3xl">
+                <div class="flex gap-x-1 text-[#C9A961] mb-5">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                </div>
+                <p class="italic text-lg">"We ordered 180 gift boxes for our corporate Diwali gifting. The packaging was impeccable and the quality consistent across every single piece. Our clients were impressed."</p>
+                <div class="mt-6 flex items-center gap-x-4">
+                    <div class="w-10 h-10 bg-[#EDE4D8] rounded-full overflow-hidden"><img src="https://picsum.photos/id/1009/40/40" class="object-cover"></div>
+                    <div>
+                        <div class="font-semibold">Vikram Malhotra</div>
+                        <div class="text-xs text-[#6B5C4D]">CEO, Apex Capital • Mumbai</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white border border-[#EDE4D8] p-8 rounded-3xl">
+                <div class="flex gap-x-1 text-[#C9A961] mb-5">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="italic text-lg">"I have tried many premium sweet brands but nothing comes close to Mithai Mahal. The freshness and balance of flavours is unmatched. My go-to for every special occasion."</p>
+                <div class="mt-6 flex items-center gap-x-4">
+                    <div class="w-10 h-10 bg-[#EDE4D8] rounded-full overflow-hidden"><img src="https://picsum.photos/id/1011/40/40" class="object-cover"></div>
+                    <div>
+                        <div class="font-semibold">Dr. Ananya Kapoor</div>
+                        <div class="text-xs text-[#6B5C4D]">Renowned Chef &amp; Food Critic • Delhi</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT / INQUIRY -->
+    <section id="contact" class="border-t border-[#EDE4D8] bg-white py-16">
+        <div class="max-w-screen-xl mx-auto px-8">
+            <div class="grid lg:grid-cols-12 gap-x-16">
+                <!-- Form -->
+                <div class="lg:col-span-7">
+                    <div class="mb-8">
+                        <div class="uppercase text-[#C9A961] tracking-widest text-xs font-semibold">LET'S CREATE SOMETHING SWEET TOGETHER</div>
+                        <h2 class="section-heading">Place an Order or<br>Make an Inquiry</h2>
+                        <p class="mt-3 text-[#6B5C4D]">Whether it's for a wedding, festival, corporate event or simply to indulge — we would love to craft the perfect selection for you.</p>
+                    </div>
+                    
+                    <form id="inquiry-form" onsubmit="handleInquirySubmit(event)" class="space-y-5">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-medium tracking-wider mb-1.5 text-[#6B5C4D]">FULL NAME</label>
+                                <input type="text" id="full-name" required class="w-full border border-[#EDE4D8] focus:border-[#C9A961] px-5 py-3.5 rounded-2xl outline-none text-sm" placeholder="Your full name">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium tracking-wider mb-1.5 text-[#6B5C4D]">PHONE NUMBER</label>
+                                <input type="tel" id="phone" required class="w-full border border-[#EDE4D8] focus:border-[#C9A961] px-5 py-3.5 rounded-2xl outline-none text-sm" placeholder="+91 98XXX XXXXX">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-xs font-medium tracking-wider mb-1.5 text-[#6B5C4D]">EMAIL ADDRESS</label>
+                            <input type="email" id="email" required class="w-full border border-[#EDE4D8] focus:border-[#C9A961] px-5 py-3.5 rounded-2xl outline-none text-sm" placeholder="you@domain.com">
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-medium tracking-wider mb-1.5 text-[#6B5C4D]">OCCASION / PURPOSE</label>
+                                <select id="occasion" class="w-full border border-[#EDE4D8] focus:border-[#C9A961] px-5 py-3.5 rounded-2xl outline-none text-sm bg-white">
+                                    <option value="">Select occasion</option>
+                                    <option value="Wedding">Wedding / Reception</option>
+                                    <option value="Festival">Festival (Diwali, Holi, etc.)</option>
+                                    <option value="Corporate">Corporate Gifting</option>
+                                    <option value="Birthday">Birthday / Celebration</option>
+                                    <option value="Personal">Personal Indulgence</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium tracking-wider mb-1.5 text-[#6B5C4D]">PREFERRED DELIVERY DATE</label>
+                                <input type="date" id="delivery-date" class="w-full border border-[#EDE4D8] focus:border-[#C9A961] px-5 py-3.5 rounded-2xl outline-none text-sm">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-xs font-medium tracking-wider mb-1.5 text-[#6B5C4D]">YOUR REQUIREMENTS</label>
+                            <textarea id="message" rows="4" class="w-full border border-[#EDE4D8] focus:border-[#C9A961] px-5 py-3.5 rounded-2xl outline-none text-sm resize-y" placeholder="Tell us about the quantity, specific sweets you love, or any special requests..."></textarea>
+                        </div>
+                        
+                        <button type="submit" 
+                                class="premium-btn w-full md:w-auto px-14 py-4 text-white font-semibold rounded-3xl flex items-center justify-center gap-x-2 text-base">
+                            <span>SEND INQUIRY</span>
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                        
+                        <p class="text-xs text-[#6B5C4D]">We typically respond within 2 hours during business hours.</p>
+                    </form>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="lg:col-span-5 mt-12 lg:mt-0">
+                    <div class="bg-[#FFFBF5] border border-[#EDE4D8] rounded-3xl p-9">
+                        <h3 class="font-semibold text-xl mb-6">Visit Our Flagship Atelier</h3>
+                        
+                        <div class="space-y-6 text-sm">
+                            <div class="flex gap-x-4">
+                                <i class="fa-solid fa-location-dot mt-1 text-[#C9A961] w-4"></i>
+                                <div>
+                                    <div class="font-medium">Mithai Mahal Flagship</div>
+                                    <div class="text-[#6B5C4D]">C-18, Bani Park, Jaipur, Rajasthan 302016</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-x-4">
+                                <i class="fa-solid fa-phone mt-1 text-[#C9A961] w-4"></i>
+                                <div>
+                                    <div>+91 141 400 8899</div>
+                                    <div class="text-[#6B5C4D]">Mon – Sat: 9:30 AM – 8:00 PM</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-x-4">
+                                <i class="fa-solid fa-envelope mt-1 text-[#C9A961] w-4"></i>
+                                <div>concierge@mithaimahal.in</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 pt-6 border-t border-[#EDE4D8]">
+                            <div class="flex items-center gap-x-5">
+                                <a href="#" class="text-[#6B5C4D] hover:text-[#C9A961]"><i class="fa-brands fa-instagram text-2xl"></i></a>
+                                <a href="#" class="text-[#6B5C4D] hover:text-[#C9A961]"><i class="fa-brands fa-linkedin text-2xl"></i></a>
+                                <a href="#" class="text-[#6B5C4D] hover:text-[#C9A961]"><i class="fa-brands fa-facebook text-2xl"></i></a>
+                            </div>
+                            <div class="text-xs text-[#6B5C4D] mt-2">Follow us for seasonal collections &amp; behind-the-scenes</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#2C1810] text-white/70 py-8 text-sm">
+        <div class="max-w-screen-2xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-y-3">
+            <div>© 2026 Mithai Mahal. All rights reserved. Crafted with devotion in Jaipur.</div>
+            <div class="flex gap-x-6 text-xs">
+                <a href="#" class="hover:text-white transition">Privacy</a>
+                <a href="#" class="hover:text-white transition">Shipping Policy</a>
+                <a href="#" class="hover:text-white transition">Terms</a>
+            </div>
+            <div class="text-xs">Handcrafted • No artificial colours • Pure ingredients only</div>
+        </div>
+    </footer>
+
+    <!-- PRODUCT QUICK VIEW MODAL -->
+    <div id="product-modal" onclick="if (event.target.id === 'product-modal') closeProductModal()" class="hidden fixed inset-0 bg-black/70 z-[70] flex items-center justify-center p-4">
+        <div onclick="event.stopImmediatePropagation()" class="bg-white w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl modal">
+            <div class="relative">
+                <img id="modal-product-image" class="w-full h-72 object-cover" alt="">
+                <button onclick="closeProductModal()" class="absolute top-4 right-4 w-9 h-9 bg-white/90 backdrop-blur flex items-center justify-center rounded-full text-[#2C1810]">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+            <div class="p-8">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <div id="modal-product-category" class="uppercase tracking-widest text-xs text-[#C9A961] font-medium"></div>
+                        <h3 id="modal-product-name" class="text-3xl font-semibold mt-1"></h3>
+                    </div>
+                    <div class="text-right">
+                        <div id="modal-product-price" class="text-3xl font-semibold"></div>
+                        <div class="text-xs text-[#6B5C4D]">per 500g</div>
+                    </div>
+                </div>
+                
+                <p id="modal-product-desc" class="mt-5 text-[#4A2C1F]"></p>
+                
+                <div class="mt-6 pt-6 border-t border-[#EDE4D8]">
+                    <div class="text-xs uppercase tracking-wider text-[#6B5C4D] mb-2">INGREDIENTS</div>
+                    <div id="modal-product-ingredients" class="text-sm text-[#4A2C1F]"></div>
+                </div>
+                
+                <div class="mt-7 flex gap-3">
+                    <button onclick="addCurrentProductToCart()" 
+                            class="flex-1 premium-btn py-4 text-white rounded-3xl font-semibold flex items-center justify-center gap-x-2">
+                        <i class="fa-solid fa-cart-plus"></i>
+                        <span>ADD TO CART</span>
+                    </button>
+                    <button onclick="closeProductModal()" 
+                            class="flex-1 border border-[#2C1810] py-4 rounded-3xl font-semibold hover:bg-[#F8F1E9]">
+                        CLOSE
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CART DRAWER -->
+    <div id="cart-drawer" onclick="if (event.target.id === 'cart-drawer') closeCartDrawer()" class="hidden fixed inset-0 bg-black/60 z-[80]">
+        <div onclick="event.stopImmediatePropagation()" class="cart-drawer absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl flex flex-col">
+            <!-- Cart Header -->
+            <div class="px-7 pt-7 pb-5 flex justify-between items-center border-b">
+                <div>
+                    <span class="font-semibold text-2xl">Your Cart</span>
+                </div>
+                <button onclick="closeCartDrawer()" class="text-3xl leading-none text-[#6B5C4D] hover:text-black">×</button>
+            </div>
+            
+            <!-- Cart Items -->
+            <div id="cart-items" class="flex-1 overflow-y-auto p-7 space-y-5 text-sm">
+                <!-- Populated by JS -->
+            </div>
+            
+            <!-- Cart Footer -->
+            <div class="border-t p-7 bg-[#FFFBF5]">
+                <div class="flex justify-between items-baseline mb-4 px-1">
+                    <span class="font-medium">Subtotal</span>
+                    <span id="cart-subtotal" class="font-semibold text-2xl">₹0</span>
+                </div>
+                <p class="text-xs text-[#6B5C4D] mb-5">Shipping calculated at checkout. Delivery in 2-4 days across India.</p>
+                
+                <button onclick="proceedToCheckout()" 
+                        class="premium-btn w-full py-[17px] text-white rounded-3xl font-semibold flex items-center justify-center gap-x-2 text-base">
+                    PROCEED TO CHECKOUT
+                </button>
+                
+                <button onclick="closeCartDrawer()" class="mt-3 w-full py-3 text-sm text-[#6B5C4D] hover:text-[#2C1810]">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHECKOUT MODAL -->
+    <div id="checkout-modal" onclick="if (event.target.id === 'checkout-modal') closeCheckoutModal()" class="hidden fixed inset-0 bg-black/70 z-[90] flex items-center justify-center p-4">
+        <div onclick="event.stopImmediatePropagation()" class="bg-white w-full max-w-md rounded-3xl overflow-hidden modal">
+            <div class="px-8 pt-8 pb-6">
+                <div class="flex justify-between items-center mb-6">
+                    <div class="font-semibold text-2xl">Checkout</div>
+                    <button onclick="closeCheckoutModal()" class="text-3xl text-[#6B5C4D]">×</button>
+                </div>
+                
+                <div id="checkout-summary" class="mb-6 text-sm bg-[#FFFBF5] p-4 rounded-2xl"></div>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-xs font-medium tracking-wider text-[#6B5C4D]">DELIVERY ADDRESS</label>
+                        <textarea id="checkout-address" rows="2" class="mt-1 w-full border border-[#EDE4D8] px-4 py-3 text-sm rounded-2xl" placeholder="Full address with pincode"></textarea>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-xs font-medium tracking-wider text-[#6B5C4D]">CITY</label>
+                            <input type="text" id="checkout-city" value="Jaipur" class="mt-1 w-full border border-[#EDE4D8] px-4 py-3 text-sm rounded-2xl">
+                        </div>
+                        <div>
+                            <label class="text-xs font-medium tracking-wider text-[#6B5C4D]">PINCODE</label>
+                            <input type="text" id="checkout-pincode" value="302016" class="mt-1 w-full border border-[#EDE4D8] px-4 py-3 text-sm rounded-2xl">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="px-8 py-6 bg-[#FFFBF5] flex gap-3">
+                <button onclick="closeCheckoutModal()" class="flex-1 py-3.5 border border-[#2C1810] rounded-3xl font-semibold">CANCEL</button>
+                <button onclick="confirmOrder()" class="flex-1 premium-btn py-3.5 text-white rounded-3xl font-semibold">CONFIRM ORDER</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUCCESS MODAL -->
+    <div id="success-modal" onclick="if (event.target.id === 'success-modal') closeSuccessModal()" class="hidden fixed inset-0 bg-black/70 z-[100] flex items-center justify-center p-4">
+        <div onclick="event.stopImmediatePropagation()" class="bg-white w-full max-w-sm rounded-3xl p-9 text-center modal">
+            <div class="mx-auto w-16 h-16 bg-emerald-100 text-emerald-600 flex items-center justify-center rounded-full mb-5">
+                <i class="fa-solid fa-check text-4xl"></i>
+            </div>
+            <h3 class="text-2xl font-semibold mb-2">Thank You!</h3>
+            <p class="text-[#4A2C1F]">Your inquiry / order has been received. Our concierge team will contact you within the next 2 hours to confirm details and arrange delivery.</p>
+            
+            <div class="mt-7">
+                <button onclick="closeSuccessModal()" class="px-10 py-3 bg-[#2C1810] text-white rounded-3xl font-semibold text-sm">CLOSE WINDOW</button>
+            </div>
+            
+            <div class="mt-6 text-xs text-[#6B5C4D]">A confirmation has been sent to your email.</div>
+        </div>
+    </div>
+
+    <!-- LOGIN MODAL (NEW) -->
+    <div id="login-modal" onclick="if (event.target.id === 'login-modal') closeLoginModal()" class="hidden fixed inset-0 bg-black/70 z-[90] flex items-center justify-center p-4">
+        <div onclick="event.stopImmediatePropagation()" class="bg-white w-full max-w-sm rounded-3xl overflow-hidden modal shadow-2xl">
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <h3 class="text-2xl font-semibold tracking-tight">Welcome to Mithai Mahal</h3>
+                        <p class="text-sm text-[#6B5C4D] mt-1">Sign in to save your preferences &amp; track orders</p>
+                    </div>
+                    <button onclick="closeLoginModal()" class="text-3xl leading-none text-[#6B5C4D] hover:text-black">×</button>
+                </div>
+                
+                <form id="login-form" onsubmit="handleLogin(event)">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-medium tracking-wider mb-1.5 text-[#6B5C4D]">EMAIL OR PHONE</label>
+                            <input type="text" id="login-email" required 
+                                   class="w-full border border-[#EDE4D8] focus:border-[#C9A961] px-5 py-3.5 rounded-2xl outline-none text-sm" 
+                                   placeholder="you@email.com or +91 98XXX XXXXX" value="demo@mithaimahal.in">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium tracking-wider mb-1.5 text-[#6B5C4D]">PASSWORD</label>
+                            <input type="password" id="login-password" required 
+                                   class="w-full border border-[#EDE4D8] focus:border-[#C9A961] px-5 py-3.5 rounded-2xl outline-none text-sm" 
+                                   placeholder="••••••••" value="demo123">
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <button type="submit" 
+                                class="premium-btn w-full py-4 text-white font-semibold rounded-3xl flex items-center justify-center gap-x-2 text-base">
+                            <span>SIGN IN</span>
+                        </button>
+                    </div>
+                    
+                    <div class="mt-5 text-center">
+                        <p class="text-xs text-[#6B5C4D]">Demo login: Use any email &amp; password (or pre-filled)</p>
+                        <p class="text-xs mt-1">New here? <span onclick="handleQuickRegister()" class="text-[#C9A961] hover:underline cursor-pointer font-medium">Create account instantly</span></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- FLOATING WHATSAPP BUTTON (NEW) -->
+    <div class="fixed bottom-6 right-6 z-[200]">
+        <button onclick="openWhatsAppChat()" 
+                class="group flex items-center justify-center w-14 h-14 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full shadow-xl hover:shadow-2xl transition-all active:scale-95">
+            <i class="fa-brands fa-whatsapp text-3xl group-hover:scale-110 transition"></i>
+        </button>
+        <div class="absolute -top-1 -right-1 bg-white text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow text-[#128C7E] border border-[#25D366]">Chat</div>
+    </div>
+
+    <script>
+        // Tailwind Script
+        function initializeTailwind() {
+            document.documentElement.style.setProperty('--accent-gold', '#C9A961');
+            
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            'serif-custom': ['Playfair Display', 'Georgia', 'serif']
+                        }
+                    }
+                }
+            };
+        }
+        
+        // Navbar scroll effect
+        function initNavbar() {
+            const navbar = document.getElementById('navbar');
+            let lastScroll = 0;
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('nav-scrolled');
+                } else {
+                    navbar.classList.remove('nav-scrolled');
+                }
+            });
+            
+            // Mobile menu
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileBtn.addEventListener('click', () => {
+                if (mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.remove('hidden');
+                    mobileBtn.innerHTML = '<i class="fa-solid fa-times text-2xl"></i>';
+                } else {
+                    closeMobileMenu();
+                }
+            });
+            
+            // Close mobile menu when clicking links
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+        }
+        
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            mobileMenu.classList.add('hidden');
+            mobileBtn.innerHTML = '<i class="fa-solid fa-bars text-2xl"></i>';
+        }
+        
+        // Products Data
+        const products = [
+            {
+                id: 1,
+                name: "Kesar Pista Laddoo",
+                category: "dry-fruit",
+                price: 499,
+                weight: "500g",
+                desc: "Premium cashew and pistachio laddoos delicately infused with pure Kashmiri saffron strands.",
+                ingredients: "Cashew, Pistachio, Pure Desi Ghee, Sugar, Saffron, Cardamom",
+                img: "https://picsum.photos/id/312/600/500"
+            },
+            {
+                id: 2,
+                name: "Kaju Katli",
+                category: "signature",
+                price: 599,
+                weight: "500g",
+                desc: "Ultra-thin slices of the finest cashew fudge, subtly flavoured with green cardamom.",
+                ingredients: "Premium Cashews, Sugar, Pure Desi Ghee, Cardamom, Silver Leaf",
+                img: "https://picsum.photos/id/292/600/500"
+            },
+            {
+                id: 3,
+                name: "Badam Barfi",
+                category: "traditional",
+                price: 449,
+                weight: "500g",
+                desc: "Rich, dense almond fudge made with pure desi ghee and the finest California almonds.",
+                ingredients: "Almonds, Pure Desi Ghee, Sugar, Cardamom",
+                img: "https://picsum.photos/id/160/600/500"
+            },
+            {
+                id: 4,
+                name: "Pista Rose Sandesh",
+                category: "signature",
+                price: 529,
+                weight: "500g",
+                desc: "Soft, melt-in-the-mouth cottage cheese fudge infused with pistachio and natural rose.",
+                ingredients: "Fresh Chhena, Pistachio, Rose Essence, Sugar, Saffron",
+                img: "https://picsum.photos/id/201/600/500"
+            },
+            {
+                id: 5,
+                name: "Motichoor Laddoo",
+                category: "festive",
+                price: 399,
+                weight: "500g",
+                desc: "Classic tiny golden boondi laddoos — the quintessential festive sweet of India.",
+                ingredients: "Gram Flour, Pure Desi Ghee, Sugar, Cardamom, Dry Fruits",
+                img: "https://picsum.photos/id/1033/600/500"
+            },
+            {
+                id: 6,
+                name: "Anjeer Dry Fruit Roll",
+                category: "dry-fruit",
+                price: 549,
+                weight: "500g",
+                desc: "Premium figs and mixed dry fruits rolled into luxurious bite-sized pieces.",
+                ingredients: "Anjeer (Figs), Almonds, Cashew, Pistachio, Dates",
+                img: "https://picsum.photos/id/312/600/500"
+            },
+            {
+                id: 7,
+                name: "Premium Soan Papdi",
+                category: "signature",
+                price: 469,
+                weight: "500g",
+                desc: "Flaky, layered soan papdi generously studded with pistachios and almonds.",
+                ingredients: "Gram Flour, Pure Desi Ghee, Sugar, Pistachio, Almond, Cardamom",
+                img: "https://picsum.photos/id/292/600/500"
+            },
+            {
+                id: 8,
+                name: "Chocolate Kaju Fusion Barfi",
+                category: "signature",
+                price: 579,
+                weight: "500g",
+                desc: "A modern masterpiece — layers of cashew barfi and fine Belgian dark chocolate.",
+                ingredients: "Cashew, Belgian Chocolate, Pure Desi Ghee, Sugar, Almonds",
+                img: "https://picsum.photos/id/160/600/500"
+            }
+        ];
+        
+        let cart = [];
+        let currentProduct = null;
+        let currentCategory = 'all';
+        let currentSearchTerm = '';
+        
+        // Render Products (supports filtered list)
+        function renderProducts(filteredProducts = products) {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = '';
+            
+            filteredProducts.forEach(product => {
+                const cardHTML = `
+                    <div class="product-card bg-white rounded-3xl overflow-hidden border border-[#EDE4D8] flex flex-col h-full" data-category="${product.category}">
+                        <div class="relative overflow-hidden aspect-[4/3]">
+                            <img src="${product.img}" alt="${product.name}" class="food-img w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white/95 px-3 py-1 text-xs font-semibold rounded-full shadow">${product.weight}</div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-1">
+                            <div>
+                                <div class="uppercase text-[#C9A961] text-[10px] tracking-[1.5px] font-semibold">${product.category.replace('-', ' ')}</div>
+                                <h3 class="font-semibold text-2xl leading-tight mt-1 mb-2">${product.name}</h3>
+                                <p class="text-sm text-[#6B5C4D] line-clamp-2">${product.desc}</p>
+                            </div>
+                            
+                            <div class="mt-auto pt-5 flex items-center justify-between">
+                                <div>
+                                    <span class="font-semibold text-2xl">₹${product.price}</span>
+                                </div>
+                                
+                                <div class="flex gap-x-2">
+                                    <button onclick="showProductModal(${product.id}); event.stopImmediatePropagation();" 
+                                            class="px-4 py-2 text-xs border border-[#C9A961] hover:bg-[#C9A961] hover:text-white transition rounded-2xl font-medium">
+                                        DETAILS
+                                    </button>
+                                    <button onclick="addToCart(${product.id}); event.stopImmediatePropagation();" 
+                                            class="px-5 py-2 text-xs bg-[#2C1810] hover:bg-black text-white transition rounded-2xl font-semibold flex items-center gap-x-1.5">
+                                        <i class="fa-solid fa-plus text-xs"></i>
+                                        <span>ADD</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += cardHTML;
+            });
+        }
+        
+        // NEW: Category Filter
+        function filterByCategory(category) {
+            currentCategory = category;
+            
+            // Update active button styles
+            document.querySelectorAll('#filter-buttons button').forEach(btn => {
+                btn.classList.remove('active', 'bg-[#C9A961]', 'text-white', 'border-[#C9A961]');
+                btn.classList.add('border-[#EDE4D8]');
+                
+                if (btn.dataset.filter === category) {
+                    btn.classList.add('active', 'bg-[#C9A961]', 'text-white', 'border-[#C9A961]');
+                    btn.classList.remove('border-[#EDE4D8]');
+                }
+            });
+            
+            applyFilters();
+        }
+        
+        // NEW: Search handler
+        function handleSearch() {
+            const input = document.getElementById('search-input');
+            currentSearchTerm = input.value.trim();
+            
+            // Show/hide clear button
+            const clearBtn = document.getElementById('clear-search-btn');
+            if (clearBtn) {
+                clearBtn.classList.toggle('hidden', !currentSearchTerm);
+            }
+            
+            applyFilters();
+        }
+        
+        function clearSearch() {
+            const input = document.getElementById('search-input');
+            input.value = '';
+            currentSearchTerm = '';
+            document.getElementById('clear-search-btn').classList.add('hidden');
+            applyFilters();
+        }
+        
+        // NEW: Combined filter logic (search + category)
+        function applyFilters() {
+            let filtered = products;
+            
+            // Category filter
+            if (currentCategory !== 'all') {
+                filtered = filtered.filter(p => p.category === currentCategory);
+            }
+            
+            // Search filter
+            if (currentSearchTerm) {
+                const term = currentSearchTerm.toLowerCase();
+                filtered = filtered.filter(p => 
+                    p.name.toLowerCase().includes(term) || 
+                    p.desc.toLowerCase().includes(term) ||
+                    p.ingredients.toLowerCase().includes(term)
+                );
+            }
+            
+            renderProducts(filtered);
+        }
+        
+        // Add to Cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            const existing = cart.findIndex(item => item.id === productId);
+            
+            if (existing > -1) {
+                cart[existing].qty += 1;
+            } else {
+                cart.push({...product, qty: 1});
+            }
+            
+            updateCartCount();
+            
+            // Toast notification
+            showToast(`${product.name} added to cart`);
+        }
+        
+        function addCurrentProductToCart() {
+            if (currentProduct) {
+                addToCart(currentProduct.id);
+                closeProductModal();
+            }
+        }
+        
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = `fixed bottom-6 left-1/2 -translate-x-1/2 bg-[#2C1810] text-white px-6 py-3 rounded-3xl flex items-center gap-x-3 text-sm shadow-2xl z-[200]`;
+            toast.innerHTML = `
+                <i class="fa-solid fa-check text-[#C9A961]"></i>
+                <span>${message}</span>
+            `;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.transition = 'all 0.3s ease';
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 200);
+            }, 2200);
+        }
+        
+        // Update Cart Count
+        function updateCartCount() {
+            const countEl = document.getElementById('cart-count');
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            countEl.textContent = totalItems;
+            
+            if (totalItems > 0) {
+                countEl.classList.add('!bg-emerald-600');
+            } else {
+                countEl.classList.remove('!bg-emerald-600');
+            }
+        }
+        
+        // Open Cart Drawer
+        function openCartDrawer() {
+            const drawer = document.getElementById('cart-drawer');
+            drawer.classList.remove('hidden');
+            drawer.classList.add('flex');
+            renderCartItems();
+        }
+        
+        function closeCartDrawer() {
+            const drawer = document.getElementById('cart-drawer');
+            drawer.classList.remove('flex');
+            drawer.classList.add('hidden');
+        }
+        
+        // Render Cart Items
+        function renderCartItems() {
+            const container = document.getElementById('cart-items');
+            container.innerHTML = '';
+            
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="flex flex-col items-center justify-center h-64 text-center">
+                        <i class="fa-solid fa-shopping-bag text-5xl text-[#EDE4D8]"></i>
+                        <p class="mt-4 text-[#6B5C4D]">Your cart is empty</p>
+                        <button onclick="closeCartDrawer()" class="mt-4 text-sm underline">Browse Collection</button>
+                    </div>
+                `;
+                document.getElementById('cart-subtotal').textContent = '₹0';
+                return;
+            }
+            
+            let subtotal = 0;
+            
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.qty;
+                subtotal += itemTotal;
+                
+                const itemHTML = `
+                    <div class="flex gap-4 border-b border-[#EDE4D8] pb-5">
+                        <div class="w-20 h-20 flex-shrink-0 rounded-2xl overflow-hidden border border-[#EDE4D8]">
+                            <img src="${item.img}" class="w-full h-full object-cover" alt="${item.name}">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex justify-between">
+                                <div class="font-semibold pr-2">${item.name}</div>
+                                <div class="font-semibold whitespace-nowrap">₹${itemTotal}</div>
+                            </div>
+                            <div class="text-xs text-[#6B5C4D]">${item.weight}</div>
+                            
+                            <div class="flex items-center justify-between mt-3">
+                                <div class="flex items-center border border-[#EDE4D8] rounded-2xl text-sm">
+                                    <button onclick="changeCartQty(${index}, -1)" class="px-3 py-1 text-lg leading-none hover:bg-[#F8F1E9] rounded-l-2xl">-</button>
+                                    <div class="px-3 font-medium border-x border-[#EDE4D8]">${item.qty}</div>
+                                    <button onclick="changeCartQty(${index}, 1)" class="px-3 py-1 text-lg leading-none hover:bg-[#F8F1E9] rounded-r-2xl">+</button>
+                                </div>
+                                
+                                <button onclick="removeFromCart(${index})" class="text-xs px-3 py-1 text-red-600 hover:text-red-700 flex items-center gap-x-1">
+                                    <i class="fa-solid fa-trash-can text-xs"></i>
+                                    <span>Remove</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += itemHTML;
+            });
+            
+            document.getElementById('cart-subtotal').innerHTML = `₹${subtotal}`;
+        }
+        
+        function changeCartQty(index, change) {
+            cart[index].qty += change;
+            
+            if (cart[index].qty < 1) cart[index].qty = 1;
+            
+            renderCartItems();
+            updateCartCount();
+        }
+        
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            renderCartItems();
+            updateCartCount();
+        }
+        
+        // Product Modal
+        function showProductModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            currentProduct = product;
+            
+            document.getElementById('modal-product-image').src = product.img;
+            document.getElementById('modal-product-name').textContent = product.name;
+            document.getElementById('modal-product-category').textContent = product.category.replace('-', ' ').toUpperCase();
+            document.getElementById('modal-product-price').innerHTML = `₹${product.price} <span class="text-sm font-normal text-[#6B5C4D]">/ ${product.weight}</span>`;
+            document.getElementById('modal-product-desc').textContent = product.desc;
+            document.getElementById('modal-product-ingredients').innerHTML = product.ingredients.split(', ').map(i => `<span class="inline-block bg-[#FFFBF5] px-3 py-1 rounded-full text-xs mr-1.5 mb-1.5">${i}</span>`).join('');
+            
+            document.getElementById('product-modal').classList.remove('hidden');
+            document.getElementById('product-modal').classList.add('flex');
+        }
+        
+        function closeProductModal() {
+            const modal = document.getElementById('product-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+        
+        // Checkout
+        function proceedToCheckout() {
+            closeCartDrawer();
+            
+            const modal = document.getElementById('checkout-modal');
+            const summaryContainer = document.getElementById('checkout-summary');
+            
+            let subtotal = 0;
+            let html = `<div class="text-sm font-medium mb-2">ORDER SUMMARY</div>`;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.qty;
+                subtotal += itemTotal;
+                html += `<div class="flex justify-between text-sm py-1"><span>${item.name} × ${item.qty}</span> <span>₹${itemTotal}</span></div>`;
+            });
+            
+            html += `<div class="flex justify-between font-semibold pt-3 mt-2 border-t"><span>Total</span> <span>₹${subtotal}</span></div>`;
+            summaryContainer.innerHTML = html;
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+        
+        function closeCheckoutModal() {
+            const modal = document.getElementById('checkout-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+        
+        function confirmOrder() {
+            const address = document.getElementById('checkout-address').value.trim();
+            
+            if (!address) {
+                alert("Please enter your delivery address.");
+                return;
+            }
+            
+            closeCheckoutModal();
+            
+            // Clear cart
+            cart = [];
+            updateCartCount();
+            
+            // Show success
+            setTimeout(() => {
+                document.getElementById('success-modal').classList.remove('hidden');
+                document.getElementById('success-modal').classList.add('flex');
+            }, 300);
+        }
+        
+        function closeSuccessModal() {
+            const modal = document.getElementById('success-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+        
+        // Inquiry Form Submit
+        function handleInquirySubmit(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            
+            // Simple validation already handled by required attributes
+            const btn = form.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = `<span class="flex items-center justify-center gap-x-2"><i class="fa-solid fa-spinner fa-spin"></i> SENDING...</span>`;
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                form.reset();
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                
+                // Show success modal
+                document.getElementById('success-modal').classList.remove('hidden');
+                document.getElementById('success-modal').classList.add('flex');
+            }, 1450);
+        }
+        
+        // ========== NEW: Login System Functions ==========
+        let currentUser = JSON.parse(localStorage.getItem('mithaiUser')) || null;
+        
+        function updateUserUI() {
+            const loginBtn = document.getElementById('login-btn');
+            const profileDiv = document.getElementById('user-profile');
+            
+            if (!loginBtn || !profileDiv) return;
+            
+            if (currentUser && currentUser.name) {
+                loginBtn.style.display = 'none';
+                profileDiv.style.display = 'flex';
+                profileDiv.classList.add('flex');
+                
+                const avatar = document.getElementById('user-avatar');
+                const nameEl = document.getElementById('user-name');
+                
+                if (avatar) avatar.textContent = currentUser.name.charAt(0).toUpperCase();
+                if (nameEl) nameEl.textContent = currentUser.name.split(' ')[0];
+            } else {
+                loginBtn.style.display = 'flex';
+                profileDiv.style.display = 'none';
+                profileDiv.classList.remove('flex');
+            }
+        }
+        
+        function openLoginModal() {
+            const modal = document.getElementById('login-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            // Focus email field
+            setTimeout(() => {
+                const emailInput = document.getElementById('login-email');
+                if (emailInput) emailInput.focus();
+            }, 300);
+        }
+        
+        function closeLoginModal() {
+            const modal = document.getElementById('login-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+        
+        function handleLogin(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('login-email').value.trim();
+            const pass = document.getElementById('login-password').value.trim();
+            
+            if (!email || !pass) {
+                alert("Please enter email and password");
+                return;
+            }
+            
+            // Demo login - accept any non-empty
+            const displayName = email.includes('@') ? email.split('@')[0] : email;
+            const formattedName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
+            
+            currentUser = {
+                name: formattedName,
+                email: email,
+                loginTime: new Date().toISOString()
+            };
+            
+            localStorage.setItem('mithaiUser', JSON.stringify(currentUser));
+            
+            closeLoginModal();
+            updateUserUI();
+            
+            showToast(`Welcome back, ${formattedName}! 🎉`);
+            
+            // Optional: If cart has items, show a hint
+            if (cart.length > 0) {
+                setTimeout(() => {
+                    showToast("Your cart is ready. Proceed to checkout anytime!");
+                }, 1800);
+            }
+        }
+        
+        function handleQuickRegister() {
+            closeLoginModal();
+            
+            // Quick demo register
+            const name = prompt("Enter your name for quick signup:", "Priya Sharma") || "Guest User";
+            
+            currentUser = {
+                name: name,
+                email: name.toLowerCase().replace(/\s+/g, '') + "@demo.in",
+                loginTime: new Date().toISOString()
+            };
+            
+            localStorage.setItem('mithaiUser', JSON.stringify(currentUser));
+            updateUserUI();
+            showToast(`Account created! Welcome, ${name.split(' ')[0]}!`);
+        }
+        
+        function logout() {
+            if (confirm("Logout from your account?")) {
+                currentUser = null;
+                localStorage.removeItem('mithaiUser');
+                updateUserUI();
+                showToast("Logged out successfully");
+            }
+        }
+        
+        function showUserMenu() {
+            if (!currentUser) return;
+            const menuHTML = `
+                <div class="fixed inset-0 z-[300] flex items-start justify-end pt-20 pr-6" onclick="this.remove()">
+                    <div onclick="event.stopImmediatePropagation()" class="bg-white border border-[#EDE4D8] rounded-3xl shadow-2xl w-64 p-2 text-sm">
+                        <div class="px-4 py-3 border-b">
+                            <div class="font-semibold">${currentUser.name}</div>
+                            <div class="text-xs text-[#6B5C4D]">${currentUser.email || ''}</div>
+                        </div>
+                        <div class="py-1">
+                            <button onclick="document.querySelector('.fixed.inset-0.z-\\[300\\]').remove(); showToast('Order history coming soon in full version!')" class="w-full text-left px-4 py-2.5 hover:bg-[#FFFBF5] rounded-2xl flex items-center gap-x-3">
+                                <i class="fa-solid fa-receipt w-4"></i> <span>My Orders</span>
+                            </button>
+                            <button onclick="document.querySelector('.fixed.inset-0.z-\\[300\\]').remove(); document.getElementById('contact').scrollIntoView({behavior:'smooth'})" class="w-full text-left px-4 py-2.5 hover:bg-[#FFFBF5] rounded-2xl flex items-center gap-x-3">
+                                <i class="fa-solid fa-heart w-4"></i> <span>Saved Preferences</span>
+                            </button>
+                        </div>
+                        <div class="border-t pt-1">
+                            <button onclick="document.querySelector('.fixed.inset-0.z-\\[300\\]').remove(); logout()" class="w-full text-left px-4 py-2.5 text-red-600 hover:bg-red-50 rounded-2xl flex items-center gap-x-3">
+                                <i class="fa-solid fa-sign-out-alt w-4"></i> <span>Logout</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', menuHTML);
+        }
+        
+        // ========== NEW: WhatsApp Integration ==========
+        function openWhatsAppChat() {
+            const phone = '911414008899'; // Mithai Mahal number from site
+            let message = "Hello Mithai Mahal! 👋 I would like to inquire about your premium handcrafted sweets.";
+            
+            // Smart message if user has items in cart
+            if (cart.length > 0) {
+                const itemsList = cart.map(item => `${item.name} (x${item.qty})`).join(', ');
+                message = `Hello Mithai Mahal! I have these items in my cart and would like to place an order: ${itemsList}. Can you help with delivery & pricing?`;
+            } else if (currentUser) {
+                message = `Hello Mithai Mahal! This is ${currentUser.name}. I would like to know more about your signature collection and current offers.`;
+            }
+            
+            const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+        
+        // Initialize Everything
+        function initializeWebsite() {
+            initializeTailwind();
+            initNavbar();
+            
+            // Render all products initially
+            renderProducts();
+            
+            // Set initial filter state
+            currentCategory = 'all';
+            currentSearchTerm = '';
+            
+            // Set initial filter button active (in case)
+            const allFilterBtn = document.querySelector('#filter-buttons button[data-filter="all"]');
+            if (allFilterBtn) {
+                allFilterBtn.classList.add('active', 'bg-[#C9A961]', 'text-white', 'border-[#C9A961]');
+            }
+            
+            // Update cart count & user login state on load
+            updateCartCount();
+            updateUserUI();
+            
+            // Bonus: Keyboard escape for modals
+            document.addEventListener('keydown', function(e) {
+                if (e.key === "Escape") {
+                    const openModals = document.querySelectorAll('.fixed.inset-0:not(.hidden)');
+                    if (openModals.length > 0) {
+                        openModals[openModals.length - 1].classList.add('hidden');
+                        openModals[openModals.length - 1].classList.remove('flex');
+                    }
+                }
+            });
+            
+            // Make sure cart count badge looks good
+            const cartCount = document.getElementById('cart-count');
+            cartCount.style.fontSize = '9.5px';
+            
+            // Demo: Add one item to cart after 8 seconds to show interactivity (optional - can remove)
+            // setTimeout(() => { if (cart.length === 0) { addToCart(1); } }, 8000);
+            
+            console.log('%c[Mithai Mahal] Premium professional website initialized successfully.', 'color:#C9A961');
+        }
+        
+        // Boot the website
+        window.onload = initializeWebsite;
+    </script>
+</body>
+</html>
